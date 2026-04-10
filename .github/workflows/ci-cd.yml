@@ -34,11 +34,11 @@ jobs:
           cd frontend
           npm install
 
-      # Build frontend
+      # Build frontend (FIXED)
       - name: Build Frontend
-  run: |
-    cd frontend
-    CI=false npm run build
+        run: |
+          cd frontend
+          CI=false npm run build
 
       # Docker build
       - name: Build Docker Images
