@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  task-service:
+    build: ./services/task-service
+    ports:
+      - "5001:5001"
+
+  user-service:
+    build: ./services/user-service
+    ports:
+      - "5002:5002"
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - task-service
+      - user-service
