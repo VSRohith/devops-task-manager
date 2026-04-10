@@ -1,0 +1,48 @@
+name: DevOps CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # Install dependencies for services
+      - name: Install Task Service Dependencies
+        run: |
+          cd services/task-service
+          npm install
+
+      - name: Install User Service Dependencies
+        run: |
+          cd services/user-service
+          npm install
+
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend
+          npm install
+
+      # Build frontend
+      - name: Build Frontend
+        run: |
+          cd frontend
+          npm run build
+
+      # Docker build
+      - name: Build Docker Images
+        run: |
+          docker build -t task-service ./services/task-service
+          docker build -t user-service ./services/user-service
+          docker build -t frontend-app ./frontend
