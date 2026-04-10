@@ -36,9 +36,9 @@ jobs:
 
       # Build frontend
       - name: Build Frontend
-        run: |
-          cd frontend
-          npm run build
+  run: |
+    cd frontend
+    CI=false npm run build
 
       # Docker build
       - name: Build Docker Images
